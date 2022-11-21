@@ -1,0 +1,18 @@
+import RPi.GPIO as GPIO
+import time
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(4,GPIO.OUT)
+
+print("Mit 'e' kann die LED angeschaltet und mit 'a' ausgeschalten werden!")
+print("Mit 'q' beenden Sie das Programm")
+
+while True:
+    userinput = input()
+    if userinput == "e":
+        GPIO.output(4,True)
+    elif userinput == "a":
+        GPIO.output(4,False)
+    elif userinput == "q":
+        break

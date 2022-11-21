@@ -1,0 +1,34 @@
+import RPi.GPIO as GPIO
+import time
+
+lastState = True
+onePress = False
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+# Pin für rote led
+GPIO.setup(4,GPIO.OUT)
+# Pin für grüne led
+GPIO.setup(18,GPIO.OUT)
+# Pin für taster
+GPIO.setup(17,GPIO.IN)
+
+print("Die Ampel kann per Knopfdruck umgeschaltet werden")
+
+while True:
+    currentState = GPIO.input(17)
+    if currentState == True and onePress == False:
+        onePress = True
+        if lastState == True:
+            GPIO.output(4,True)
+            GPIO.output(18,False)
+            lastState = False
+        else:   
+            GPIO.output(4,False)
+            GPIO.output(18,True)
+            lastState = True
+    elif currentState == False and onePress == True:
+        time.sleep(0.1)
+        onePress = False
+    
+
